@@ -1,0 +1,12 @@
+{
+  "name": "fs-practice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/greygatch/fs-practice.git",
+  "author": "Evan Gatchell <greygatch@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf ./temp",
+    "rebuild": "npm run clean && node directory.js"
+  }
+}

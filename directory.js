@@ -8,22 +8,23 @@ function handleError(err){
 }
 
 function makeTempDir(){
-  fs.mkdir(path.resolve(__dirname, './temp'), function(err){
-    handleError(err);
-    console.log("Directory created successfully!");
-    readConfigFile();
-  });
+  const tempPath = path.resolve(__dirname, './temp');
+  fs.mkdir(tempPath);
+  console.log('Temp directory created.');
+  updateConfigFile();
 }
 
-function readConfigFile(){
-  fs.readFile(path.resolve(__dirname, 'config.json'), (err, data) => {
+function updateConfigFile(){
+  const configPath = path.resolve(__dirname, 'config.json');
+  fs.readFile(configPath, (err, data) => {
     handleError(err)
     writeConfigCopy(data);
   });
 }
 
 function writeConfigCopy(data){
-  fs.writeFile(path.resolve(__dirname, "./temp/config.json.example"), data.toString(), (err) => {
+  const configOutputPath = path.resolve(__dirname, "./temp/config.json.example");
+  fs.writeFile(configOutputPath, data.toString(), (err) => {
       handleError(err)
       console.log("The file was saved.");
   });
@@ -32,7 +33,7 @@ function writeConfigCopy(data){
 
 const tempDirectoryExists = fs.existsSync('./temp');
 if (tempDirectoryExists) {
-  readConfigFile();
+  updateConfigFile();
 } else {
   makeTempDir();
 }
