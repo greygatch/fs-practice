@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const tempDirectoryExists = fs.existsSync('./temp');
 
 function handleError(err){
   if(err){
@@ -7,7 +8,7 @@ function handleError(err){
   }
 }
 
-function makeTempDir(){
+function makeTempDirAndUpdate(){
   const tempPath = path.resolve(__dirname, './temp');
   fs.mkdir(tempPath);
   console.log('Temp directory created.');
@@ -31,9 +32,8 @@ function writeConfigCopy(data){
 }
 
 
-const tempDirectoryExists = fs.existsSync('./temp');
 if (tempDirectoryExists) {
   updateConfigFile();
 } else {
-  makeTempDir();
+  makeTempDirAndUpdate();
 }
